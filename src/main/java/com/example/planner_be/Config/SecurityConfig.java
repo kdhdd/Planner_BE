@@ -50,9 +50,7 @@ public class SecurityConfig {
         http.httpBasic(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.GET, "/comments/**").permitAll()
-                .requestMatchers("/comments/**", "/users/me").authenticated() // /comments 엔드포인트는 인증된 사용자만 접근 가능
-                .anyRequest().permitAll() // 그 외 요청은 모두 허용
+                .anyRequest().permitAll()
         );
 
         http.addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
