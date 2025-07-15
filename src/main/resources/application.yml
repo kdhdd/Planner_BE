@@ -1,3 +1,16 @@
 spring:
   application:
     name: Planner_BE
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/planner?serverTimezone=Asia/Seoul
+    username: root
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  jwt:
+    secret: ${JWT_SECRET}
