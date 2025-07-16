@@ -3,6 +3,7 @@ package com.example.planner_be.Util;
 import com.example.planner_be.Code.ErrorCode;
 import com.example.planner_be.Dto.User.TokenErrorResponse;
 import com.example.planner_be.Model.User;
+import com.example.planner_be.Model.UserRole;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,10 +12,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class JWTFilter extends OncePerRequestFilter {
@@ -51,6 +57,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
             String username = jwtUtil.getUsername(token);
             String nickname = jwtUtil.getNickname(token);
+            String role = jwtUtil.getUserRole(token);
 
             User user = User.signupBuilder()
                     .username(username)
@@ -58,7 +65,12 @@ public class JWTFilter extends OncePerRequestFilter {
                     .nickname(nickname)
                     .build();
 
-            Authentication authToken = new UsernamePasswordAuthenticationToken(user, null);
+            List<GrantedAuthority> authorities =
+                    Collections.singletonList(
+                            new SimpleGrantedAuthority(role)
+                    );
+
+            Authentication authToken = new UsernamePasswordAuthenticationToken(user, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authToken);
 
         } catch (ExpiredJwtException e) {
@@ -66,6 +78,7 @@ public class JWTFilter extends OncePerRequestFilter {
             return; // 조건이 해당되면 메소드 종료 (필수)
         } catch (Exception e) {
             TokenErrorResponse.sendErrorResponse(response, ErrorCode.INVALID_ACCESS_TOKEN);
+            e.printStackTrace();
             return; // 조건이 해당되면 메소드 종료 (필수)
         }
 
