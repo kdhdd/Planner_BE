@@ -2,9 +2,7 @@ package com.example.planner_be.Exception;
 
 
 import com.example.planner_be.Code.ErrorCode;
-import com.example.planner_be.Code.ResponseCode;
 import com.example.planner_be.Dto.Response.ErrorResponseDTO;
-import com.example.planner_be.Dto.Response.ResponseDTO;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
