@@ -66,11 +66,4 @@ public class GlobalExceptionHandler {
                 .status(ErrorCode.INVALID_VALUE.getStatus().value())
                 .body(new ErrorResponseDTO(ErrorCode.INVALID_VALUE));
     }
-
-    @ExceptionHandler(EmptyException.class)
-    protected ResponseEntity<ResponseDTO<?>> handleEmptyException(final EmptyException e) {
-        return ResponseEntity
-                .status(ResponseCode.SUCCESS_PRODUCT_EMPTY.getStatus().value())
-                .body(new ResponseDTO<>(ResponseCode.SUCCESS_PRODUCT_EMPTY, null));
-    }
 }
