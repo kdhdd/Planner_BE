@@ -2,9 +2,7 @@ package com.example.planner_be.Exception;
 
 
 import com.example.planner_be.Code.ErrorCode;
-import com.example.planner_be.Code.ResponseCode;
 import com.example.planner_be.Dto.Response.ErrorResponseDTO;
-import com.example.planner_be.Dto.Response.ResponseDTO;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -65,12 +63,5 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(ErrorCode.INVALID_VALUE.getStatus().value())
                 .body(new ErrorResponseDTO(ErrorCode.INVALID_VALUE));
-    }
-
-    @ExceptionHandler(EmptyException.class)
-    protected ResponseEntity<ResponseDTO<?>> handleEmptyException(final EmptyException e) {
-        return ResponseEntity
-                .status(ResponseCode.SUCCESS_PRODUCT_EMPTY.getStatus().value())
-                .body(new ResponseDTO<>(ResponseCode.SUCCESS_PRODUCT_EMPTY, null));
     }
 }
