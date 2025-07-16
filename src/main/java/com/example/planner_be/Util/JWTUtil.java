@@ -1,6 +1,7 @@
 package com.example.planner_be.Util;
 
 
+import com.example.planner_be.Model.UserRole;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,11 +43,12 @@ public class JWTUtil {
         }
     }
 
-    public String createJwt(String type, String username, String nickname, Long expiredMs) {
+    public String createJwt(String type, String username, String nickname, UserRole role, Long expiredMs) {
         return Jwts.builder()
                 .claim("type", type)
                 .claim("username", username)
                 .claim("nickname", nickname)
+                .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiredMs))
                 .signWith(secretKey)

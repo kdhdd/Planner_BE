@@ -5,6 +5,7 @@ import com.example.planner_be.Dto.User.ResponseUserDto;
 import com.example.planner_be.Exception.DuplicateLoginIdException;
 import com.example.planner_be.Exception.UserNotExistException;
 import com.example.planner_be.Model.User;
+import com.example.planner_be.Model.UserRole;
 import com.example.planner_be.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class UserService {
+
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -30,6 +32,7 @@ public class UserService {
                 .username(registerUserDto.getUsername())
                 .password(bCryptPasswordEncoder.encode(registerUserDto.getPassword()))
                 .nickname(registerUserDto.getNickname())
+                .role(UserRole.USER)
                 .build();
 
         userRepository.save(user);

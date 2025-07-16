@@ -24,10 +24,14 @@ public class User {
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
     @Builder(builderMethodName = "signupBuilder")
-    public User(String username, String password, String nickname) {
+    public User(String username, String password, String nickname, UserRole role) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+        this.role = role;
     }
 }

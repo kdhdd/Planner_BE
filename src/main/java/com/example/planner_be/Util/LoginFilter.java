@@ -6,6 +6,7 @@ import com.example.planner_be.Dto.Response.ErrorResponseDTO;
 import com.example.planner_be.Dto.Response.ResponseDTO;
 import com.example.planner_be.Dto.User.CustomUserDetails;
 import com.example.planner_be.Model.User;
+import com.example.planner_be.Model.UserRole;
 import com.example.planner_be.Repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -47,11 +48,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         String username = customUserDetails.getUsername();
         String nickname = customUserDetails.getNickname();
+        UserRole role = customUserDetails.getRole();
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String accessToken = jwtUtil.createJwt("accessToken", username, nickname, 86400000L);
-        String refreshToken = jwtUtil.createJwt("refreshToken", username, nickname, 86400000L);
+        String accessToken = jwtUtil.createJwt("accessToken", username, nickname, role, 86400000L);
+        String refreshToken = jwtUtil.createJwt("refreshToken", username, nickname, role, 86400000L);
 
         response.setHeader("accessToken", "Bearer " + accessToken);
         response.setHeader("refreshToken", "Bearer " + refreshToken);
