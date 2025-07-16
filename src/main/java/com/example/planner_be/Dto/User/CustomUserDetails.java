@@ -1,6 +1,7 @@
 package com.example.planner_be.Dto.User;
 
 import com.example.planner_be.Model.User;
+import com.example.planner_be.Model.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,6 +33,10 @@ public class CustomUserDetails implements UserDetails {
 
     public String getNickname() {
         return user.getNickname();
+    }
+
+    public UserRole getRole() {
+        return user.getRole();
     }
 
     @Override
