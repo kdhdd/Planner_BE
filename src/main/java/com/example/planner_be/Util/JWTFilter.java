@@ -3,7 +3,6 @@ package com.example.planner_be.Util;
 import com.example.planner_be.Code.ErrorCode;
 import com.example.planner_be.Dto.User.TokenErrorResponse;
 import com.example.planner_be.Model.User;
-import com.example.planner_be.Model.UserRole;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -78,7 +76,6 @@ public class JWTFilter extends OncePerRequestFilter {
             return; // 조건이 해당되면 메소드 종료 (필수)
         } catch (Exception e) {
             TokenErrorResponse.sendErrorResponse(response, ErrorCode.INVALID_ACCESS_TOKEN);
-            e.printStackTrace();
             return; // 조건이 해당되면 메소드 종료 (필수)
         }
 
