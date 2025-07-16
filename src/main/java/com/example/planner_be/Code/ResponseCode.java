@@ -36,7 +36,7 @@ public enum ResponseCode {
      * Place
      */
     SUCCESS_RETRIEVE_PLACE(HttpStatus.OK, "여행지를 성공적으로 불러왔습니다."),
-
+    SUCCESS_REGISTER_PLACE(HttpStatus.OK, "여행지를 성공적으로 등록했습니다."),
 
     /**
      * Recommendation

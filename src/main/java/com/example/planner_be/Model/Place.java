@@ -25,4 +25,10 @@ public class Place {
     /* 외부 맛집 API 전달용 시·도/시·군·구 명 (예: 제주특별자치도, 경상북도 경주시) */
     @Column(nullable = false, length = 50)
     private String areaNm;
+
+    @Builder(builderMethodName = "signupBuilder")
+    public Place(String name, String areaNm) {
+        this.name = name;
+        this.areaNm = areaNm;
+    }
 }
