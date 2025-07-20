@@ -18,3 +18,7 @@ spring:
 admin:
   username: ${ADMIN_USERNAME}
   password: ${ADMIN_PASSWORD}
+
+kcisa:
+  base-url: https://api.kcisa.kr/openapi/API_CNV_063/request
+  service-key: ${KCISA_SERVICE_KEY}
